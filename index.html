@@ -71,7 +71,7 @@
             signInWithEmailAndPassword(auth, emailId.value, password1.value)
                 .then((Credentials) => {
                     console.log(emailId);
-                    window.location.href = "scanner.html";
+                    window.location.href = "home.html";
                 })
                 .catch((error) => {
                     alert(error.message);
