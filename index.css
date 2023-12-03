@@ -1,0 +1,96 @@
+        /* style.css file*/
+        body {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            box-sizing: border-box;
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 25px;
+            margin-top: 5rem;
+        }
+
+        .container h1 {
+            color: #ffffff;
+        }
+
+        .section {
+            background-color: #ffffff;
+            padding: 30px 25px;
+            border: 1.5px solid #b2b2b2;
+            border-radius: 0.25em;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .result{
+            color: rgb(77, 77, 77);
+            background-color: #ffffff;
+            border: 1.5px solid #b2b2b2;
+            border-radius: 0.25em;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+            margin-top: 2rem;
+            padding: 10px 25px;
+            font-weight: 600;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #Result{
+            text-align: center;
+            padding: 5px 0;
+            color: red;
+            text-transform: uppercase;
+        }
+
+        #my-qr-reader {
+            padding: 20px !important;
+            border: 1.5px solid #b2b2b2 !important;
+            border-radius: 8px;
+        }
+
+
+        #my-qr-reader img[alt="Info icon"] {
+            display: none;
+        }
+
+        #my-qr-reader img[alt="Camera based scan"] {
+            width: 100px !important;
+            height: 100px !important;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: 1px solid #b2b2b2;
+            outline: none;
+            border-radius: 0.25em;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background-color: #008000ad;
+            transition: 0.3s background-color;
+        }
+
+        button:hover {
+            background-color: #008000;
+        }
+
+        #html5-qrcode-anchor-scan-type-change {
+            text-decoration: none !important;
+            color: #1d9bf0;
+        }
+
+        video {
+            width: 100% !important;
+            border: 1px solid #b2b2b2 !important;
+            border-radius: 0.25em;
+        }

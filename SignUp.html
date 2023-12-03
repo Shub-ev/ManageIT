@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>ManageIT</title>
+    <link rel="stylesheet" href="output.css">
+</head>
+
+<body class="bg-gray-100 h-100vh w-100vw flex flex-col justify-center items-center">
+    <div class="container w-[100vw] h-[100vh] flex justify-center items-center">
+        <form class="w-96 p-10 border-2 border-gray-200 rounded-lg" id="signUp">
+            <span class="font-mono flex justify-center pb-4 text-2xl font-extrabold">ManageIT</span>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="passwordInput1">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">ReEnter Password</label>
+                <input type="password" class="form-control" id="passwordInput2">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+            </div>
+            <div class="buttonDiv w-full flex justify-between px-5">
+                <button type="submit" class="btn btn-primary bg-blue-700">Submit</button>
+                <a href="index.html"><button class="btn btn-primary bg-blue-700" type="button">Login</button></a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCj5LC4StqSNAZXptkpsOv19sAuMwD54d4",
+            authDomain: "manageit-5887a.firebaseapp.com",
+            projectId: "manageit-5887a",
+            storageBucket: "manageit-5887a.appspot.com",
+            messagingSenderId: "645655264990",
+            appId: "1:645655264990:web:86498441d935a40d9a8c4f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth(app);
+
+        let emailId = document.getElementById('emailInput');
+        let password1 = document.getElementById('passwordInput1');
+        let password2 = document.getElementById('passwordInput2');
+        let SignUpForm = document.getElementById('signUp');
+
+        let RegisterUser = evt => {
+            evt.preventDefault();
+
+            createUserWithEmailAndPassword(auth, emailId.value, password1.value)
+                .then((Credentials) => {
+                    console.log(emailId);
+                    window.location.href = "index.html";
+
+                })
+                .catch((error) => {
+                    alert(error.message);
+                    console.log(error.code);
+                    console.log(error.message);
+                })
+        }
+
+        SignUpForm.addEventListener('submit', RegisterUser);
+
+    </script>
+</body>
+
+</html>
