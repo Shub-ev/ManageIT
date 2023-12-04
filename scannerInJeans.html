@@ -9,7 +9,7 @@
     <title>ManageIT</title>
 </head>
 
-<body>
+<body class="flex flex-col">
     <script src="toFireBase.js"></script>
     <div class="container">
         <div class="section">
@@ -18,15 +18,18 @@
             <div class="result">
                 <span>Result here: </span>
                 <span id="Result"></span>
+                <span>Product Count : </span>
+                <span id="productCount"></span>
             </div>
-            <a href="home.html"><button class="float-left" style="width: 100%;">Home IN</button></a>
+            <a href="home.html"><button class="float-left" style="width: 100%;">Home</button></a>
         </div>
     </div>
-    <script src="https://unpkg.com/html5-qrcode">
-    </script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getDatabase, ref, set, child, update, remove, push } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+        import { getDatabase, ref, set, child, update, remove, push, get, DataSnapshot } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
         function domReady(fn) {
             if (
@@ -43,7 +46,10 @@
             function onScanSuccess(decodeText, decodeResult) {
                 alert("You Qr is : " + decodeText, decodeResult);
                 const result_section = document.getElementById('Result');
+                const productCount = document.getElementById('productCount');
                 result_section.innerText = decodeText;
+
+
                 // writeToFireBase(decodeText);   
                 const firebaseConfig = {
                     apiKey: "AIzaSyCj5LC4StqSNAZXptkpsOv19sAuMwD54d4",
@@ -57,25 +63,42 @@
 
                 const app = initializeApp(firebaseConfig);
                 const db = getDatabase();
+                const productsRef = ref(db, "Jeans");
 
                 /****************Write to firebase******************/
-                
-                set(ref(db, "Product/"+decodeText),{
+
+                set(ref(db, "Jeans/" + decodeText), {
                     product: decodeText,
                 })
-                .then(()=>{
-                    alert("Data Stored");
-                })
-                .catch((eoor)=>{
-                    alert("error in data storing"+error);
-                })
+                    .then(() => {
+                        alert("Data Stored");
+                    })
+                    .catch((error) => {
+                        alert("error in data storing" + error);
+                    })
+
+
+                get(productsRef)
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                            // Use Object.keys to get an array of keys and then get the length
+                            const count = Object.keys(snapshot.val()).length;
+                            console.log(`Total number of products: ${count}`);
+                            productCount.innerText = count;
+                        } else {
+                            console.log('No products found.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error getting product count:', error);
+                    });
             }
 
-            let htmlscanner = new Html5QrcodeScanner(
-                "my-qr-reader",
-                { fps: 10, qrbos: 250 }
-            );
-            htmlscanner.render(onScanSuccess);
+        let htmlscanner = new Html5QrcodeScanner(
+            "my-qr-reader",
+            { fps: 10, qrbos: 250 }
+        );
+        htmlscanner.render(onScanSuccess);
         });
     </script>
 </body>
